@@ -5,7 +5,7 @@
 ## Machine Learning
 
 
-## Blogs
+## General Blogs
 1. [Four paradigms of Science](https://dsaikrishna.wordpress.com/2021/08/29/four-paradigms-of-science/)
 
 Data Science is the fourth paradigm of Science. It is akin to Galileo taking observations through a telescope, but today’s Galileo has a telescope that can generate hundreds of GBs of data per day. The problem is that there are not enough Galileos to interpret this data and create more theories.
@@ -21,6 +21,10 @@ How doctors can end up overtreating when they lack knowledge of Bayes' theorem.
 4. [Why anecdotal evidence is BS?](https://d-saikrishna.github.io/Blogs/Anviksiki/anecdotal-bs.html)
 
  People give you anecdotal evidence to justify all sorts of non-sense. You want to tell them that anecdotal evidence is useless. But their stories are very strong and emotional. Hence, let's use same math to call out anecdotal evidence. Don't worry, we just use high school math for this.
+
+## Technical Blogs
+
+1. [Confirmatory Factor Analysis](https://medium.com/civicdatalab/identifying-flood-preparedness-factors-using-factor-analysis-fb4f20ebfd4b)
 
 
 ## Example projects
