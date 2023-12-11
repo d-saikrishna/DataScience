@@ -1,8 +1,19 @@
 # DataScience
-
+[Roadmap](https://docs.google.com/presentation/d/1NlT3DrzPyi6k-qsVAxSYR-1G-_J618afsVAd0k4PBQc/edit?usp=sharing)
 ## Statistics
 
 ## Machine Learning
+
+## Decision Science 
+
+How to choose?
+
+You went to a mobile shop and the sales person showed you multiple options. How will you decide on which phone to buy?
+
+1. Technique for Order of Preference by Similarity to Ideal Solution (TOPSIS)
+
+How it works?: Chosen alternative should have the shortest geometric distance from the best solution and largest distance from the worst solution.
+
 
 
 ## General Blogs
