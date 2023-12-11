@@ -72,6 +72,11 @@ Rank accordingly.
 
 ## Use cases of TOPSIS
 1. Selection of vendors, softwares, sites etc.
+2. We can use TOPSIS to rank students (any ranking). Would it be better than the current ranking system? TOPSIS is compensatory
+3. Reverse engineering a decision already taken using TOPSIS weightages shows the value system.
+
+## Challenges with TOPSIS:
+1. If the categorical variable is a nominal variable. That variable cannot be used in TOPSIS. Ordinal variables can be included.
 
 ## References:
 1. [What is TOPSIS? By Robert Soczewica](https://robertsoczewica.medium.com/what-is-topsis-b05c50b3cd05)
