@@ -77,7 +77,7 @@ Rank accordingly.
 
 ## Challenges with TOPSIS:
 1. If the categorical variable is a nominal variable. That variable cannot be used in TOPSIS. Ordinal variables can be included.
-2. Every variable in TOPSIS has to be defined in such a way that you can tell it is "Higher the better" or "Lower the better". But variables like `weight` or `BMI` cannot be defined that way.
+2. Every variable in TOPSIS has to be defined in such a way that you can tell it is "Higher the better" or "Lower the better". But variables like `weight` or `BMI` cannot be defined that way. Such variables should be engineered appropriately. For instance, I calculated a new variable called `dist_ideal_BMI` which calculates distance from the ideal BMI (22 - assumed). This new variable can be defined as "lower the better" 
 
 ## References:
 1. [What is TOPSIS? By Robert Soczewica](https://robertsoczewica.medium.com/what-is-topsis-b05c50b3cd05)
