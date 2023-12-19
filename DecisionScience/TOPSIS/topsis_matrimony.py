@@ -23,7 +23,7 @@ matrimony_df = matrimony_df.drop(['BMI','Weight'], axis=1)
 
 evaluation_matrix = np.array(matrimony_df.iloc[:,1:].values) #ID not needed
 
-weights = [1, 1, 1, 1, 1, 1] #Equal weights to all variables
+weights = [3, 1, 1, 1, 3, 1] #Equal weights to all variables
 
 criterias = [True, True, True, True, True, False]
 # All variables - more is better; Except "dist_Ideal_BMI" which is lower the better

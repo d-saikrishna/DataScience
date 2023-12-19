@@ -70,6 +70,9 @@ $s_i = \dfrac{d_i^w} {d_i^w + d_i^b}$
 Higher the score, better the alternative (closest to PIS).
 Rank accordingly.
 
+The above steps are applied in the `topsis_matrimony.py` case study.
+You can play with this here: [Whom to marry](https://whomtomarry.streamlit.app/)
+
 ## Use cases of TOPSIS
 1. Selection of vendors, softwares, sites etc.
 2. We can use TOPSIS to rank students (any ranking). Would it be better than the current ranking system? TOPSIS is compensatory
@@ -78,6 +81,14 @@ Rank accordingly.
 ## Challenges with TOPSIS:
 1. If the categorical variable is a nominal variable. That variable cannot be used in TOPSIS. Ordinal variables can be included.
 2. Every variable in TOPSIS has to be defined in such a way that you can tell it is "Higher the better" or "Lower the better". But variables like `weight` or `BMI` cannot be defined that way. Such variables should be engineered appropriately. For instance, I calculated a new variable called `dist_ideal_BMI` which calculates distance from the ideal BMI (22 - assumed). This new variable can be defined as "lower the better" 
+
+## QnAs
+1. When will a choice have TOPSIS Score =1?
+
+- When the choice is the best across all variables.
+
+2. Can we compare TOPSIS Scores across multiple runs (with different weightages)?*
+- I think yes. The score is primarily a distance from the best/worst situation. So the more the score, the closer it is to the best/worst situation. Different weightage combinations would place an alternative at different distances from the best/worst situations. But I don't think you can compare ranks though. Even though you are closer to the best situation at a particular weightage combination, you could rank worse when other alternatives perform better.
 
 ## References:
 1. [What is TOPSIS? By Robert Soczewica](https://robertsoczewica.medium.com/what-is-topsis-b05c50b3cd05)

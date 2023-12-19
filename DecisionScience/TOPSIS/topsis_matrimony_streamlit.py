@@ -28,12 +28,12 @@ matrimony_df = matrimony_df.drop(['BMI','Weight'], axis=1)
 
 evaluation_matrix = np.array(matrimony_df.iloc[:,1:].values)
 
-weight_salary = st.sidebar.slider(label="Weightage for Salary", min_value=0, max_value=10, value=10)
-weight_wealth = st.sidebar.slider(label="Weightage for Wealth", min_value=0, max_value=10, value=10)
-weight_siblings = st.sidebar.slider(label="Weightage for Siblings", min_value=0, max_value=10, value=10)
-weight_complexion = st.sidebar.slider(label="Weightage for Complexion", min_value=0, max_value=10, value=10)
-weight_height = st.sidebar.slider(label="Weightage for Height", min_value=0, max_value=10, value=10)
-weight_bmi = st.sidebar.slider(label="Weightage for BMI", min_value=0, max_value=10, value=10)
+weight_salary = st.sidebar.slider(label="Weightage for Salary", min_value=1, max_value=3, value=3)
+weight_wealth = st.sidebar.slider(label="Weightage for Wealth", min_value=1, max_value=3, value=3)
+weight_siblings = st.sidebar.slider(label="Weightage for Siblings", min_value=1, max_value=3, value=3)
+weight_complexion = st.sidebar.slider(label="Weightage for Complexion", min_value=1, max_value=3, value=3)
+weight_height = st.sidebar.slider(label="Weightage for Height", min_value=1, max_value=3, value=3)
+weight_bmi = st.sidebar.slider(label="Weightage for BMI", min_value=1, max_value=3, value=3)
 
 weights = [weight_salary,
            weight_wealth,
