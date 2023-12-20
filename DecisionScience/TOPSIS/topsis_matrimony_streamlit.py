@@ -6,6 +6,7 @@ import os
 import psweep as ps
 import seaborn as sns
 import matplotlib.pyplot as plt
+st.set_page_config(layout="wide", page_title="Groom Recommending Engine")
 
 
 tab1, tab2 = st.tabs(["Groom Recommendation", "Test your decisions"])
