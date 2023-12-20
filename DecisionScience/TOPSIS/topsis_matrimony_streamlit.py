@@ -94,13 +94,16 @@ with tab2:
 
     evaluation_matrix = np.array(matrimony_df2.iloc[:,1:].values)
 
-    options = tuple(matrimony_df2.name)
+    with st.form("my_form"):
+        options = tuple(matrimony_df2.name)
 
-    option = st.selectbox(
-    'Whom do you want to marry?',
-    options)
+        option = st.selectbox(
+        'Whom do you want to marry?',
+        options)
 
-    index_of_element = options.index(option)
+        index_of_element = options.index(option)
+
+        submitted = st.form_submit_button("Submit")
 
     def calculate_topsis(pset):
         criterias = [True, True, True, True, True, False]
@@ -121,64 +124,61 @@ with tab2:
     weight_height = ps.plist("weight_height", weights)
     weight_bmi = ps.plist("weight_bmi", weights)
 
+    if submitted:
+        params = ps.pgrid(weight_salary,
+                        weight_wealth,
+                        weight_sibling,
+                        weight_complexion,
+                        weight_height,
+                        weight_bmi,
+                        )
+        
+        df = ps.run(calculate_topsis, params)
+        df = df[df['_run_seq'] == df['_run_seq'].max()]
 
-    params = ps.pgrid(weight_salary,
-                    weight_wealth,
-                    weight_sibling,
-                    weight_complexion,
-                    weight_height,
-                    weight_bmi,
-                    )
+        df = df[df['topsis_rank'] ==1]
+        st.write('### {} has {}% chance of getting selected'.format(option, round(100*df.shape[0]/len(params), 2) ))
+        st.write('{} is most likely to be selected when: '.format(option))
+        st.write(df.sort_values(by='topsis_score', ascending=False).head(1)[['weight_salary',
+                'weight_wealth',
+                'weight_sibling',
+                'weight_complexion',
+                'weight_height',
+                'weight_bmi']])
+
+
+        df = df[['weight_salary',
+                'weight_wealth',
+                'weight_sibling',
+                'weight_complexion',
+                'weight_height',
+                'weight_bmi']]
+        
+        
+        
+        # Create an empty DataFrame to store value counts
+        value_counts_df = pd.DataFrame()
+
+        # Get value counts for each column and concatenate into the new DataFrame
+        for column in df.columns:
+                value_counts = df[column].value_counts()
+                value_counts_df = pd.concat([value_counts_df, value_counts], axis=1, sort=False)
+
+        # Fill NaN values with 0
+        value_counts_df = value_counts_df.fillna(0)
+
+        # Rename columns for clarity
+        value_counts_df.columns = [f'{col}' for col in df.columns]
+
+        # Create a heatmap using seaborn
+        plt.figure(figsize=(10, 6))
+        sns.heatmap(value_counts_df, annot=True, cmap='mako_r', fmt='g', linewidths=.5)
+        plt.title('Value Counts Heatmap')
+        plt.tight_layout()  # Adjust layout to prevent label cutoff
+        plt.xticks(rotation=0)
+        plt.savefig(current_path + 'psweep.jpg')
+
+        
+
+        st.image(current_path + 'psweep.jpg')
     
-    df = ps.run(calculate_topsis, params)
-    df = df[df['_run_seq'] == df['_run_seq'].max()]
-
-    df = df[df['topsis_rank'] ==1]
-    st.write('### {} has {}% chance of getting selected'.format(option, round(100*df.shape[0]/len(params), 2) ))
-    st.write('{} is most likely to be selected when: '.format(option))
-    st.write(df.sort_values(by='topsis_score', ascending=False).head(1)[['weight_salary',
-            'weight_wealth',
-            'weight_sibling',
-            'weight_complexion',
-            'weight_height',
-            'weight_bmi']])
-
-
-    df = df[['weight_salary',
-            'weight_wealth',
-            'weight_sibling',
-            'weight_complexion',
-            'weight_height',
-            'weight_bmi']]
-    
-   
-    
-    # Create an empty DataFrame to store value counts
-    value_counts_df = pd.DataFrame()
-
-    # Get value counts for each column and concatenate into the new DataFrame
-    for column in df.columns:
-        value_counts = df[column].value_counts()
-        value_counts_df = pd.concat([value_counts_df, value_counts], axis=1, sort=False)
-
-    # Fill NaN values with 0
-    value_counts_df = value_counts_df.fillna(0)
-
-    # Rename columns for clarity
-    value_counts_df.columns = [f'{col}' for col in df.columns]
-
-    # Create a heatmap using seaborn
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(value_counts_df, annot=True, cmap='mako_r', fmt='g', linewidths=.5)
-    plt.title('Value Counts Heatmap')
-    plt.tight_layout()  # Adjust layout to prevent label cutoff
-    plt.xticks(rotation=0)
-    plt.savefig(current_path + 'psweep.jpg')
-
-    
-
-    st.image(current_path + 'psweep.jpg')
-    
-
-
-
