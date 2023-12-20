@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np 
 import os
 import psweep as ps
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 current_path = os.getcwd()+'/DecisionScience/TOPSIS/'
 
@@ -36,8 +39,8 @@ def calculate_topsis(pset):
 
     t = Topsis(evaluation_matrix, weights, criterias)
     t.calc()
-    return {"topsis_score": t.worst_similarity[6],
-            "topsis_rank": t.rank_to_worst_similarity()[6]}
+    return {"topsis_score": t.worst_similarity[1],
+            "topsis_rank": t.rank_to_worst_similarity()[1]}
 
 
 
@@ -64,7 +67,6 @@ params = ps.pgrid(weight_salary,
 print(len(params))
 
 df = ps.run(calculate_topsis, params)
-df[df['_run_seq'] == df['_run_seq'].max()].to_csv('check.csv')
 
 print(df[df['topsis_rank']==1].sort_values(by='topsis_score', ascending=False).head(1)[['weight_salary',
                   'weight_wealth',
@@ -74,3 +76,36 @@ print(df[df['topsis_rank']==1].sort_values(by='topsis_score', ascending=False).h
                   'weight_bmi',
                   'topsis_rank',
                   'topsis_score']])
+
+df = df[df['_run_seq'] == df['_run_seq'].max()]
+
+df = df[df['topsis_rank'] ==1]
+
+df = df[['weight_salary',
+         'weight_wealth',
+         'weight_sibling',
+         'weight_complexion',
+         'weight_height',
+         'weight_bmi']]
+
+# Create an empty DataFrame to store value counts
+value_counts_df = pd.DataFrame()
+
+# Get value counts for each column and concatenate into the new DataFrame
+for column in df.columns:
+    value_counts = df[column].value_counts()
+    value_counts_df = pd.concat([value_counts_df, value_counts], axis=1, sort=False)
+
+# Fill NaN values with 0
+value_counts_df = value_counts_df.fillna(0)
+
+# Rename columns for clarity
+value_counts_df.columns = [f'{col}' for col in df.columns]
+
+# Create a heatmap using seaborn
+plt.figure(figsize=(10, 6))
+sns.heatmap(value_counts_df, annot=True, cmap='mako_r', fmt='g', linewidths=.5)
+plt.title('Value Counts Heatmap')
+plt.tight_layout()  # Adjust layout to prevent label cutoff
+plt.xticks(rotation=0)
+plt.savefig(current_path + 'psweep.jpg')
