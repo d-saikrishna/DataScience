@@ -4,6 +4,10 @@
 
 ## Machine Learning
 
+### Unsupervised
+
+1. PCA
+
 ## Decision Science 
 
 How to choose?
