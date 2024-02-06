@@ -7,6 +7,7 @@
 ### Unsupervised
 
 1. PCA
+2. t-SNE
 
 ## Decision Science 
 

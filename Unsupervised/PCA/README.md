@@ -1,6 +1,8 @@
 # Principal Component Analysis (PCA)
 
-PCA helps in dimensionality reduction. You will be able to visualise 4+ dimensions (variables) in the form of a 2/3-Dimensions (Principal Components)
+PCA 'helps'* in dimensionality reduction. You will be able to visualise 4+ dimensions (variables) in the form of a 2/3-Dimensions (Principal Components) without losing much information/variance.
+
+* If there are 10 dimensions, you'll create 10 PCs to explain 100% variance of the original data. It is just that first 2-3 PCs can explain most of this variance and thus helps in dimension reduction.
 
 t-SNE and MDS are other methods of this category.
 
@@ -54,8 +56,24 @@ We could not find visible clusters here. But there are few interpretations that 
         b. Top-left villages did well on immunisation for both 0-3 and 0-6 age group. Bottom-left villages did well for 0-3, but not 0-6 age group. Why? Any lapse for 3-6 children?
 
 ## Limitations
-1. PCA assumes linear relation between variables. t-SNE can be explored for non-linear relations.
+
+[Limitations - Local Structure, Non-Linearity](https://medium.com/analytics-vidhya/dimensionality-reduction-principal-component-analysis-d1402b58feb1)
+
+## Uses of PCA:
+
+For clustering alone, use PaCMAP as it preserves both local and global structures. But PCA can be used for other uses:
+
+1. **Improve Machine Learning:** 
+
+- As Principal Components explain most of the variance, they can be used in ML models instead of the variables directly. Simplifies ML modeling as a result.
+- If there is multicollinearity in the original variables, the PCs will not have multicollinearity (they are orthogonal). So it might help in linear regression etc. However, the PCs are hodgepodge of original variables. So, the linear regression may not be useful for interpretation (studying affect of independent variables). But for prediction, yes it might help.
+
+
+3. Image Compression.
+[Reversing PCs --> Original Variables](https://stats.stackexchange.com/questions/229092/how-to-reverse-pca-and-reconstruct-original-variables-from-several-principal-com/229093#229093)
+
 
 ## References
 
 1. [StatQuest](https://www.youtube.com/watch?v=FgakZw6K1QQ&t=1s)
+2. [A good analogy on wines](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues/140579#140579)
