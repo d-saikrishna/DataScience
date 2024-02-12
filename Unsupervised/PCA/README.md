@@ -55,10 +55,6 @@ We could not find visible clusters here. But there are few interpretations that 
 
         b. Top-left villages did well on immunisation for both 0-3 and 0-6 age group. Bottom-left villages did well for 0-3, but not 0-6 age group. Why? Any lapse for 3-6 children?
 
-## Limitations
-
-[Limitations - Local Structure, Non-Linearity](https://medium.com/analytics-vidhya/dimensionality-reduction-principal-component-analysis-d1402b58feb1)
-
 ## Uses of PCA:
 
 For clustering alone, use PaCMAP as it preserves both local and global structures. But PCA can be used for other uses:
@@ -72,8 +68,18 @@ For clustering alone, use PaCMAP as it preserves both local and global structure
 3. Image Compression.
 [Reversing PCs --> Original Variables](https://stats.stackexchange.com/questions/229092/how-to-reverse-pca-and-reconstruct-original-variables-from-several-principal-com/229093#229093)
 
+4. Outlier detection
+
+## Limitations[3]
+
+[Limitations - Local Structure, Non-Linearity](https://medium.com/analytics-vidhya/dimensionality-reduction-principal-component-analysis-d1402b58feb1)
+
+## Conclusion
+
+Use it more for data exploration. PCA provides a good data summary[2]. 
 
 ## References
 
 1. [StatQuest](https://www.youtube.com/watch?v=FgakZw6K1QQ&t=1s)
 2. [A good analogy on wines](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues/140579#140579)
+3. [Nature Journal - PCA](https://www.nature.com/articles/nmeth.4346)

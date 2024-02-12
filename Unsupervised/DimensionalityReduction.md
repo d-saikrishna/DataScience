@@ -8,12 +8,12 @@ Linear ways does this mapping through projections. This is similar to how globe 
 
 Example: PCA
 
-Non-linear ways does this mapping
+Non-linear ways does this mapping in a , non-lienar way :o 
 
-Example: t-SNE
+Example: kernel PCA.
 
 **Parametric and Non-Parametric ways**
-In non-paramteric ways, we do not have an explicit function that does the mapping. Instead we just position points in the low dimensional space trying to optimise something (neighbours etc).
+In non-paramteric ways, we do not have an explicit function that does the mapping. Instead we just position points in the low dimensional space trying to optimise something (preserve nearest neighbours (t-SNE); preserve pairwise distances (MDS)).
 
 Example: tSNE, MDS
 
@@ -37,11 +37,23 @@ When Homophily is failed - different classes mix together. This is what happens 
 PCA could fail to preserve local structure
 ![PCA could fail to preserve local structure](PCA/pca_localstructure.jpeg)
 
-Global structure preservation means that relative positions between clusters are preserved, as well as larger-scale manifold structures.
+![MNIST PCA](Papers/mnist_pca.png)
+Neither Local structure nor Global Structure is preserved.
+
+![MNIST tSNE](Papers/mnist_tSNE.png)
+Local structure terrificly preerved. Global also decent.
+
+See, if you use more PCs you may preserve local structure. But that defeats the objective of dimensionality reduction
+
+Global structure preservation means that relative positions between clusters are preserved, as well as larger-scale manifold structures. PCA can preserve it (so you could answer "How many clusters are there?")
 
 If a DR model fails to preserve global structure =>
-1. False clusters (See UMAP in the figure below - brown cluster got clustered into two different clusters)
-2. Distances between clusters are not preserved. So even though homophily is maintained (likes stay with likes) - the distance between clusters is very less - you cannot differentiate the clusters. This happens with t-SNE often.
+1. **False clusters** (See UMAP in the figure below - brown cluster got clustered into two different clusters)
+2. **Crowding Problem:** Distances between clusters are not preserved. So even though homophily is maintained (likes stay with likes) - the distance between clusters is very less - you cannot differentiate the clusters. This happens with t-SNE often.
+![alt text](Papers/crowding_problem.png)
+Crowding problem
+<br>
+<br>
 
 ![alt text](Papers/global_local_structures.png)[3]
 PacMAP can preserve both Global and Local structures. It is a new DR model. 
@@ -60,13 +72,19 @@ See, whatever DR model you run, you'll be able to see a reduced scatter plot. Ho
 2. Preservation of Global Structure
 3. Sensitivity to parameter choices
 4. Sensitivity to pre-processing choices
-5. Computational Efficiency
+5. Computational Efficiency: Algorithms that calculate pair-wise distances (MDS) and pairwise similarities (tSNE) are hard to scale.
 
-        Ideally, a DR method would preserve local structure and global structure, be somewhat insensitive to parameter choices and pre-processing and be computationally efficient[2]
+Ideally, a DR method would preserve local structure and global structure, be somewhat insensitive to parameter choices and pre-processing and be computationally efficient[2]
 
+
+## Applications
+
+Clustering, DataViz, Hypothesis generation in: 
+1. Digital Humanities: Samples are books | Features are words (each word a variable!)
+3. BioInformatics: Samples are cells | Features are genes.
 
 ## References
 
-1. [Yubingen ML Lecture](https://www.youtube.com/watch?v=MnRskV3NY1k)
+1. [Tubingen ML Lecture](https://www.youtube.com/watch?v=MnRskV3NY1k)
 2. [Comprehensive evaluation of Dimensionality Reduction - Nature](https://www.nature.com/articles/s42003-022-03628-x)
 3. [DR - biology - Supplementary Notes](https://static-content.springer.com/esm/art%3A10.1038%2Fs42003-022-03628-x/MediaObjects/42003_2022_3628_MOESM1_ESM.pdf)
