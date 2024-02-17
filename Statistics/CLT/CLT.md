@@ -7,3 +7,7 @@ Generally considered when n>30; but works sometimes for lesser n also - especial
 Once the sampling distribution is normal - you can use z-stat to calculate confidence interval.
 
 If the sample size is very small - we can consider that the sampling distribution is in t-distribution (t-stat). This is applicable only if population is normal distribution!
+
+![alt text](clt.png)
+
+Run `clt_proof.py` to see how it works. Different population distributions -- but distribution of sample means is normally distributed.
