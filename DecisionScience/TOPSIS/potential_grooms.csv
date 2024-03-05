@@ -5,7 +5,7 @@ ID,Salary,Wealth,Siblings,Complexion,Height,Weight
 4,600000,2,Yes,Fair,178,100
 5,650000,5,No,Wheatish,185,120
 6,450000,1,Yes,Fair,172,60
-7,700000,5,No,Wheatish,177,75
+7,700000,5,No,Dark,177,75
 8,550000,2,Yes,Fair,176,110
 9,1200000,2,Yes,Wheatish,182,95
 10,500000,1,No,Dark,168,50
@@ -14,7 +14,7 @@ ID,Salary,Wealth,Siblings,Complexion,Height,Weight
 13,560000,2,No,Wheatish,179,80
 14,490000,1,Yes,Fair,174,65
 15,800000,5,No,Wheatish,184,115
-16,420000,0.5,Yes,Dark,169,45
+16,1800000,0.5,Yes,Dark,169,45
 17,620000,2,Yes,Wheatish,177,105
 18,520000,1,No,Fair,175,75
 19,580000,2,Yes,Wheatish,180,100

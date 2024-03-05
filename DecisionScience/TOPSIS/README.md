@@ -91,6 +91,7 @@ You can play with this here: [Whom to marry](https://whomtomarry.streamlit.app/)
 2. Can we compare TOPSIS Scores across multiple runs (with different weightages)?*
 - I think yes. The score is primarily a distance from the best/worst situation. So the more the score, the closer it is to the best/worst situation. Different weightage combinations would place an alternative at different distances from the best/worst situations. But I don't think you can compare ranks though. Even though you are closer to the best situation at a particular weightage combination, you could rank worse when other alternatives perform better.
 
+
 ## References:
 1. [What is TOPSIS? By Robert Soczewica](https://robertsoczewica.medium.com/what-is-topsis-b05c50b3cd05)
 2. [On rank reversal and TOPSIS method](https://www.sciencedirect.com/science/article/pii/S0895717711007850)

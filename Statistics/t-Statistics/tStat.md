@@ -9,9 +9,3 @@ Z-Stat assumes that the sampling distribution is in normal distribution. So, whe
 But say your survey got you a very very small sample $n$ = 5 from you which you have to infer population. How sure can you be that the standard deviation of this sample equal to that of population. $\sigma \approx S$ - Not equal to! So, we cannot be sure that with $S$, we have a normal distribution of the samples. There would be more than 5% of samples outside the 2*$S$ - Basically you would have a fat tail! (More chance of extreme values). Hence, to avoid underestimation of the confidence interval, we use the t-Statistic (considering a t-Distribution). 
 
 $\mu = \overline{x} \pm t^* * \frac{S}{\sqrt{n}}$
-
-With increasing $n$, we can be more confident that our sampling distribution is in normal distribution. Generally $n = 30$, means we can assume sampling distribution is in normal distribution.
-
-1. t-Stats are basically necessary when sample size $n$ is <30. But in today's world, that is rarely a thing. So why is t-Stats still important!
-- In a lot of algorithms, we deal with small sample spaces. Eg: tSNE - we take a small sample of neighbours for each point. 
-
