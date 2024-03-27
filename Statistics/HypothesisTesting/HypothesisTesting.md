@@ -37,6 +37,8 @@ We calculate p Value to test the null hypothesis. Typically, we reject the Null 
 
 Why do we take p-Value of 0.05 as a threshold? Because, generally speaking, our null hypothesis is that Drugs A and B are same. So we are interested in the extremes on both ends. +/- 2 (or) 3 standard deviations and beyond. So we calculate the probability that the experimetn sample falls in either extremes (2.5% + 2.5%)
 
+![alt text](pvalue.png)
+
 **Definition:** "Probability of getting values equal or more extreme than the experiment value, **given the null hypothesis is true**" 
 
 **Other ways of interpreting p-value:**

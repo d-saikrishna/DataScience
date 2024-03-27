@@ -30,7 +30,7 @@ Example: PCA. The loadings are nothing but parameters. They are helping you map 
 
 Local structure preservation means that neighbors in the high-dimensional space should still be neighbors in the low-dimensional space. This is best explained by the concept -- **Homophily**
 
-        Homophily: members of each class should be close to other members of the same class, and should be far from members of other classes. (False clusters would pass the Homophhily check)
+**Homophily**: members of each class should be close to other members of the same class, and should be far from members of other classes. (False clusters would pass the Homophily check)
 
 When Homophily is failed - different classes mix together. This is what happens when we say "local structure" is not preserved. We would have less number of clusters than they actually exist.
 

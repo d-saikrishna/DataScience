@@ -9,7 +9,7 @@ Generally considered when n>30; but works sometimes for lesser n also - especial
 
 Once the sampling distribution is normal - you can use z-stat to calculate confidence interval.
 
-If the sample size is very small - sample distribuution may not converge soon to a normal distribution.
+If the sample size is very small - sample distribuution may not converge soon to a normal distribution. So we use t-distribution in these cases.
 
 ![alt text](clt_poisson_n5_i50.png)
 
@@ -42,9 +42,19 @@ One can think that why can't I solve the German Tank problem using CLT. It's a s
 But in German Tank Problem, you are trying to estimate the population maximum using sample maximum. Is CLT applicable here?
 ![alt text](german_tank_cltfail.png)
 
-CLT is thus not applicable. Also, we con
+CLT is thus not applicable.
 
 The estimators that you derive using this assumption are not precise. Read the [example](https://stats.stackexchange.com/questions/69744/why-at-all-consider-sampling-without-replacement-in-a-practical-application) to know why. So if you want a very precise estimate, you have to consider sampling without replacement. Which means, you cannot use CLT. [So German Tank Problem was solved differently](https://www.youtube.com/watch?v=quV-MCB8Ozs) 
 
-Blogs:
+## What to do when CLT fails?
+
+We have seen two cases above where CLT fails. Then how can we build Confidence Intervals or do Hypothesis testing?
+
+We use inequalities to set bounds.
+
+This inequality helps in lower bounding the quantity, which is hard to compute without CLT assumption.
+
+Or you can derive the expected value like in the German Tank problem.
+
+## Blogs:
 1. [Beware of fat tails](https://dsaikrishna.wordpress.com/2021/06/06/beware-of-fat-tails/)
