@@ -32,7 +32,9 @@ Posterior = P(A|B) <br>
 Prior = P(A) <br>
 Likelihood of new evidence = $\frac{P(B|A)}{\sum_j P(B|A_j).P(A_j)} $
 
-$P(B) = \sum_j P(B|A_j).P(A_j) $ -- Law of Total Probability
+$P(B) = \sum_j P(B|A_j).P(A_j) $ -- [Law of Total Probability](https://www.youtube.com/watch?v=U3_783xznQI) - better written as sum of all intersections between B and Ai
+
+`Monty Hall problem` is a good example to understand this.
 
 Where people get confused:
 1. `Prosecutor's fallacy` P(A|B) != P(B|A). Also called `Confusion of the Inverse` I wrote a blog on it. [Why Doctor's need Bayes](https://d-saikrishna.github.io/Blogs/Anviksiki/bayes-doctor.html)
