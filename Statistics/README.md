@@ -1,6 +1,10 @@
 # Stats
 
-"Using fancy tools like neural nets, boosting and support vector machines wihtout understanding basic statistics is like doing brain surgery before knowing how to use a band-aid" -- Larry Wassrerman 
+Illuminating the world with statistical science.
+
+"The numbers have no way of speaking for themselves. We speak for them. We imbue them with meaning" - Nate Silver.
+
+"Using fancy tools like neural nets, boosting and support vector machines without understanding basic statistics is like doing brain surgery before knowing how to use a band-aid" -- Larry Wassrerman 
 
 ## 4 Types of Stats
 ![Probability and Inference](Books/fig1_larry.png)

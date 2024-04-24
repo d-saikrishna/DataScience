@@ -26,5 +26,7 @@ $\mu = \overline{x} \pm t^* * \frac{S}{\sqrt{n}}$
 # Bootstrapping
 You can do bootsrapping to calculate Confidence Interval. Check `Bootstrapping.ipynb`
 
+## Note
+1. In Frequntist measures, the Confidence Interval is not a probability statement about the parameter (mean height of population) we are inferring. This parameter is fixed. There is no 5% chance that this parameter lies outside the calculated Confidence Interval. In Bayesian methods (Credible Interval), we will use this parameter as a random variable. We can make such probability statements there.
 
 
