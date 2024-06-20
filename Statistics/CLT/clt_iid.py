@@ -50,7 +50,7 @@ plt.ylabel('Frequency')
 plt.title('Histogram of Distirbution of Sample Means')
 
 # Show plot
-plt.savefig(os.getcwd()+'/Statistics/CLT/taleb.png')
+plt.savefig(os.getcwd()+'/Statistics/CLT/taleb2.png')
 
 print('Mixed Dist: Mean - {} STD - {}'.format(np.mean(pop), np.std(pop)/np.sqrt(20)))
 print('Sampling Dist: Mean - {} STD - {}'.format(np.mean(means), np.std(means)))
