@@ -1,7 +1,7 @@
 #Large files
 *.nc
 *.tif
-
+*.xlsx
 #Keys
 
 # Byte-compiled / optimized / DLL files

@@ -7,14 +7,13 @@
 
 OLS estimator is BLUE under the assumptions (Gauss Markov assumptions):
 1. Linearity
-2. Random Sampling
+2. Random Sampling -- that's how CLT applies and we can build confidence intervals for the coefficient estimates.
 3. Non-collinearity
 4. Zero Conditional Mean of residuals: E(e|X)=0
 5. Exogeneity / Homoscedascticity. 
 
 ## Why intercept is needed?
 [Nice explainer!](https://medium.com/swlh/why-do-we-need-an-intercept-in-regression-models-76485a98d03c)
-
 
 ## Expected value of residual for given X should be 0
 
