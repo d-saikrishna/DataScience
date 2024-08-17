@@ -1,6 +1,10 @@
 import pulp as p
 import pandas as pd
 import math
+import itertools
+import numpy as np
+import regex as re
+from tqdm import tqdm
 from natsort import natsort_keygen
 import warnings
 warnings.filterwarnings("ignore")
@@ -10,54 +14,25 @@ solver_list = p.listSolvers(onlyAvailable=True)
 print("The solver used in solving this Linear Programming problem: ", solver_list[0])
 
 # ///*************** DATA INPUT ***************\\\
-origin_df = pd.read_excel('Input excel files/Origins.xlsx')
-origin_df.columns = ['ID', 'Latitude', 'Longitude', 'M1', 'M2', 'M3']
+origin_df = pd.read_excel('ORIGINS.xlsx')
+origin_df.columns = ['ID', 'M1', 'M2', 'M3']
 
-destinations_df = pd.read_excel('Input excel files/Destinations.xlsx')
+destinations_df = pd.read_excel('DESTINATIONS.xlsx')
 
 origins = origin_df['ID']
 destinations = destinations_df['ID']
 materials = ['M1', 'M2', 'M3']
 
-# ///*************** FUNCTION TO CALCULATE HAVERSINE DISTANCE BETWEEN TWO POINTS ***************\\\
-def haversine(lat1, lon1, lat2, lon2):
-    # Convert latitude and longitude from degrees to radians
-    lat1 = math.radians(lat1)
-    lon1 = math.radians(lon1)
-    lat2 = math.radians(lat2)
-    lon2 = math.radians(lon2)
+origin_df = origin_df.fillna(0)
+destinations_df = destinations_df.fillna(0)
 
-    # Haversine formula
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    # Radius of Earth in kilometers
-    R = 6371.0
-    distance = R * c
+# ///*************** DISTANCE MATRIX ***************\\\
+distance_matrix = pd.read_excel('distance matrix.xlsx')
+distance_matrix = pd.melt(distance_matrix, id_vars=['Unnamed: 0'], value_vars = list(origins))
+distance_matrix.columns = ['D','S','km']
+distance_matrix['route'] = distance_matrix.apply(lambda row: (row['S'], row['D']), axis=1)
 
-    return distance
-
-# ///*************** CREATE DISTANCE MATRIX ***************\\\
-distances = []
-routes = []
-for idx in range(len(origin_df)):
-    lon1 = origin_df.loc[idx, 'Longitude']
-    lat1 = origin_df.loc[idx, 'Latitude']
-    for idx2 in range(len(destinations_df)):
-        lon2 = destinations_df.loc[idx2, 'Longitude']
-        lat2 = destinations_df.loc[idx2, 'Latitude']
-        try:
-            distance = haversine(lat1, lon1, lat2, lon2)
-            distances.append(distance)
-            routes.append((origin_df.loc[idx, 'ID'], destinations_df.loc[idx2, 'ID']))
-        except:
-            print(origin_df.loc[idx, 'ID'])
-            print(destinations_df.loc[idx2, 'ID'])
-
-distance_matrix = pd.DataFrame([routes,distances]).T
-distance_matrix.columns = ['route','km']
 distance_km = distance_matrix.set_index('route').to_dict()['km']
 
 # ///*************** CREATE SUPPLY DICTIONARY ***************\\\
@@ -66,50 +41,87 @@ supply = origin_df[['ID', 'M1', 'M2', 'M3']].set_index('ID').T.to_dict()
 # ///*************** CREATE DEMAND DICTIONARY ***************\\\
 demand_total = dict(zip(destinations_df['ID'], destinations_df['Required quantity']))
 
-#  ///*************** INITIATE LP MINIMISATION PROBLEM ***************\\\
-Lp_prob = p.LpProblem('Problem', sense = p.LpMinimize)  
+# ///*************** FUNCTION THAT SOLVES THE LP PROBLEM***************\\\
+def minimise_costs_lp(origins, destinations, materials, pertonkm_cost, distance_km, supply, demand_total):
+    #  ///*************** INITIATE LP MINIMISATION PROBLEM ***************\\\
+    Lp_prob = p.LpProblem('Problem', sense = p.LpMinimize)
 
-
-#  ///*************** DEFINE DECISION VARIABLES x: EACH MATERIAL LOAD TRANSPORTED BETWEEN PAIR OF POINTS ***************\\\
-x = p.LpVariable.dicts("transport", 
+    #  ///*************** DEFINE DECISION VARIABLES x: EACH MATERIAL LOAD TRANSPORTED BETWEEN PAIR OF POINTS ***************\\\
+    x = p.LpVariable.dicts("transport", 
                           [(o, d, m) for o in origins for d in destinations for m in materials], 
                           lowBound=0,
                           cat='Continuous')
 
-#  ///*************** DEFINE DECISION VARIABLES y: BLENDING OPTION AT EACH DESTINATION ***************\\\
-y = p.LpVariable.dicts("y", 
+    #  ///*************** DEFINE DECISION VARIABLES y: BLENDING OPTION AT EACH DESTINATION ***************\\\
+    y = p.LpVariable.dicts("y", 
                     [(d, option) for d in destinations for option in ['M2', 'M3']], 
                           cat='Binary')
 
-# ///*************** OBJECTIVE FUNCTION: MINIMISE TRANSPORTATION COST ***************\\\
+    # ///*************** OBJECTIVE FUNCTION: MINIMISE TRANSPORTATION COST ***************\\\
+    pertonkm_cost = 8.24
+    Lp_prob += p.lpSum([pertonkm_cost * distance_km[(o, d)] * x[o, d, m] for o in origins for d in destinations for m in materials])
+
+    # ///*************** CONSTRAINTS: CAN'T SUPPLY MORE THAN AVAILABLE ***************\\\
+    for o in origins:
+        for m in materials:
+            Lp_prob += p.lpSum([x[o, d, m] for d in destinations]) <= supply[o][m], f"Supply_Constraint_{o}_{m}"
+
+    # ///*************** CONSTRAINTS: BLENDING AT EACH DESTINATION ***************\\\
+    for d in destinations:
+        Lp_prob += p.lpSum([x[o, d, 'M1'] for o in origins]) == 0.05 * demand_total[d], f"Demand_Constraint_M1_{d}"
+        Lp_prob += p.lpSum([x[o, d, 'M2'] for o in origins]) == 0.10 * demand_total[d] * y[d, 'M2'], f"Demand_Constraint_M2_{d}"
+        Lp_prob += p.lpSum([x[o, d, 'M3'] for o in origins]) == 0.20 * demand_total[d] * y[d, 'M3'], f"Demand_Constraint_M3_{d}"
+        Lp_prob += y[d, 'M2'] + y[d, 'M3'] == 1, f"Blending_Option_Selection_{d}"
+    
+    # ///*************** SOLVE LP PROBLEM ***************\\\
+    status = Lp_prob.solve()
+    cost = p.value(Lp_prob.objective)
+    vars = Lp_prob.variables()
+    return status, cost, vars
+
+# ///*************** ITERATIVELY SOLVE LP FOR DIFFERENT DESTINATION COMBINATIONS***************\\\
 pertonkm_cost = 8.24
-Lp_prob += p.lpSum([pertonkm_cost * distance_km[(o, d)] * x[o, d, m] for o in origins for d in destinations for m in materials])
+## ALL DESTINATIONS SERVED
+status, cost, vars = minimise_costs_lp(origins, destinations, materials, pertonkm_cost, distance_km, supply, demand_total)
+if status == 1:
+    print('Linear Programming problem solved by delivering to all destinations')
+    print(cost)
+else:
+    problem_solved = 0
+    num_destinations_to_drop = 1
+    while problem_solved == 0:
+        print('Dropping {} destinations'.format(num_destinations_to_drop))
+        destinations_to_drop = list(itertools.combinations(range(len(destinations)), num_destinations_to_drop))
+        costs = []
+        dropped = []
+        for dropped_destination in tqdm(destinations_to_drop):
+            dropped.append(destinations[list(dropped_destination)].values)
+            new_destinations = destinations.drop(index=list(dropped_destination))
+            status, cost, vars = minimise_costs_lp(origins, new_destinations, materials, pertonkm_cost, distance_km, supply, demand_total)
+            if status == 1:
+                costs.append(cost)
+            else:
+                costs.append(np.nan)
 
-# ///*************** CONSTRAINTS: CAN'T SUPPLY MORE THAN AVAILABLE ***************\\\
-for o in origins:
-    for m in materials:
-        Lp_prob += p.lpSum([x[o, d, m] for d in destinations]) <= supply[o][m], f"Supply_Constraint_{o}_{m}"
+        df = pd.DataFrame([dropped,costs]).T
+        df.columns = ['dropped_destination', 'cost']
+        
+        if df['cost'].count() >0:
+            problem_solved=1
+        else:
+            num_destinations_to_drop = num_destinations_to_drop + 1
 
-# ///*************** CONSTRAINTS: BLENDING AT EACH DESTINATION ***************\\\
-for d in destinations:
-    Lp_prob += p.lpSum([x[o, d, 'M1'] for o in origins]) == 0.05 * demand_total[d], f"Demand_Constraint_M1_{d}"
-    Lp_prob += p.lpSum([x[o, d, 'M2'] for o in origins]) == 0.10 * demand_total[d] * y[d, 'M2'], f"Demand_Constraint_M2_{d}"
-    Lp_prob += p.lpSum([x[o, d, 'M3'] for o in origins]) == 0.20 * demand_total[d] * y[d, 'M3'], f"Demand_Constraint_M3_{d}"
-    Lp_prob += y[d, 'M2'] + y[d, 'M3'] == 1, f"Blending_Option_Selection_{d}" # This will ensure that each destination either receives M2 or M3
-
- # ///*************** SOLVE LP PROBLEM ***************\\\
-Lp_prob.solve()
-print(f"Status: {p.LpStatus[Lp_prob.status]}")
-print("Total Cost = ", p.value(Lp_prob.objective))
-
+    destinations_to_remove = list(df.sort_values(by='cost')['dropped_destination'].reset_index(drop=True)[0])
+    print(destinations_to_remove)
+    new_destinations = destinations[~destinations.isin(destinations_to_remove)].reset_index(drop=True)
+    status, cost, vars = minimise_costs_lp(origins, new_destinations, materials, pertonkm_cost, distance_km, supply, demand_total)
 
  # ///*************** RESULTS ***************\\\
 distance_matrix[['SupplyPoint', 'DemandPoint']] = pd.DataFrame(distance_matrix['route'].tolist(), index=distance_matrix.index)
-import regex as re
 
 loads = []
 routes = []
-for v in Lp_prob.variables():
+for v in vars:
     if 'trans' in v.name:
         routes.append(re.findall(r"transport_\('([^']*)',_'([^']*)',_'([^']*)'\)", v.name)[0])
         loads.append(v.varValue)
