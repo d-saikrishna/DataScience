@@ -1,0 +1,111 @@
+---
+title: "Student survey"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introduction
+
+In this code along we'll work with a small but pretty "messy" survey data on favorite foods and some other information on school aged children.
+
+## Packages
+
+We will use the **tidyverse** for our analysis.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(janitor)
+```
+
+## Data
+
+The data are synthetic, so we ca make a few important points quickly.
+
+# Analysis
+
+-   Read the data in and inspect it.
+
+```{r}
+#| label: read-students-raw
+students_raw <- read_csv("https://data-science-with-r.github.io/data/students-raw.csv")
+
+students_raw
+```
+
+-   Fix the variable names.
+
+```{r}
+#| label: names
+#| message: false
+
+students_raw <- read_csv("https://data-science-with-r.github.io/data/students-raw.csv") |>
+  janitor::clean_names()
+
+students_raw
+```
+
+-   Handle NAs.
+
+```{r}
+#| label: nas
+#| message: false
+
+students_raw <- read_csv("https://data-science-with-r.github.io/data/students-raw.csv",
+                         na = c("", "NA", "N/A")) |>
+  janitor::clean_names()
+
+students_raw
+```
+
+-   Inspect variable types and apply fixes where appropriate.
+
+```{r}
+#| label: types
+students_raw <- read_csv("https://data-science-with-r.github.io/data/students-raw.csv",
+                         na = c("", "NA", "N/A")) |>
+  janitor::clean_names() |>
+  mutate(age = if_else(age == 'five', "5", age),
+         age = as.numeric(age))
+students_raw
+```
+
+-   Inspect variable classes and apply fixes where appropriate. Save the resulting data frame as `students`.
+
+```{r}
+#| label: classes
+students <- students_raw <- read_csv("https://data-science-with-r.github.io/data/students-raw.csv",
+                         na = c("", "NA", "N/A")) |>
+  janitor::clean_names() |>
+  mutate(age = if_else(age == 'five', "5", age),
+         age = as.numeric(age),
+         meal_plan = as.factor(meal_plan))
+```
+
+-   Write out the `students` object to a CSV file in the data folder of your working directory.
+
+```{r}
+#| label: write-csv
+# add code here
+```
+
+-   Read in the newly created `students.csv` and inspect the variable types and classes. Do you observe anything unexpected?
+
+```{r}
+#| label: read-csv
+# add code here
+```
+
+-   Write out the `students` object to an RDS file in the data folder of your working directory.
+
+```{r}
+#| label: write-rds
+# add code here
+```
+
+-   Read in the newly created `students.rds` and inspect the variable types and classes. How is this result different than the CSV file you read in?
+
+```{r}
+#| label: read-rds
+# add code here
+```

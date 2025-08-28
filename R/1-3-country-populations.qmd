@@ -1,0 +1,206 @@
+---
+title: "Country populations over time"
+fig-asp: 0.4
+fig-width: 8
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introduction
+
+## Goal
+
+Our ultimate goal in this application exercise is to make the following data visualization.
+
+![](https://data-science-with-r.github.io/images/country-populations-years.png){fig-alt="Line plot of country populations for the United States, India, and China between 2000 and 2023." fig-align="center"}
+
+## Packages
+
+We will use the **tidyverse** and **scales** packages for data wrangling and visualization.
+
+```{r}
+#| message: false
+library(tidyverse)
+library(scales)
+```
+
+## Data
+
+These data come from [The World Bank](https://databank.worldbank.org/reports.aspx?source=2&series=SP.POP.TOTL&country=#) and reflect population counts for the years 2000 to 2023. The populations given are mid-year estimates.
+
+```{r}
+#| label: load-population-data
+#| message: false
+population <- read_csv("https://data-science-with-r.github.io/data/population.csv")
+```
+
+Let's take a look at the data.
+
+```{r}
+#| label: view-population-data
+slice_head(population)
+```
+
+# Analysis
+
+## Tidying
+
+-   What are the aesthetic mappings in the plot shown above, i.e., what pieces of information do we need represented as columns (variables) in our data frame in order to be able to recreate this plot?
+
+Year, Population, Country
+
+-   Reshape the `population` data such that it can be used to recreate the plot above. Note: For now, you can keep all the countries in the dataset.
+
+```{r}
+#| label: pivot
+population |>
+  pivot_longer(
+    cols = '2000':'2023',
+    names_to = "year",
+    values_to = "Population" )
+```
+
+-   What is the type of the `year` variable? Why? What should it be?
+
+Integer
+
+-   Start over with pivoting, and this time also make sure `year` is a numerical variable in the resulting data frame. Save the resulting data frame as `population_longer`.
+
+```{r}
+#| label: pivot-better
+population_longer <- population |>
+  pivot_longer(
+    cols = '2000':'2023',
+    names_to = "year",
+    values_to = "Population",
+    names_transform = as.numeric)
+```
+
+## Visualization
+
+-   Now we start making our plot, but let's not get too fancy right away. Create a line plot of populations of the United States, India, and China over the years. Represent the data with points and lines.
+
+```{r}
+#| label: line-plot
+ggplot(
+  population_longer |>
+    filter(country_name %in% c("China", "India", "United States")) |>
+    mutate(Population = Population /1000000),
+  aes(x = year, y = Population, color = country_name, shape=country_name)) +
+  geom_point() + 
+  geom_line() +
+  labs(y = "Population (in millions)",
+       color="Country", shape="Country")
+```
+
+-   What aspects of the plot need to be updated to go from the draft you created above to the goal plot at the beginning of this application exercise.
+
+Add response here.
+
+-   Use different shapes for each country's points.
+
+```{r}
+#| label: shapes
+# add code here
+```
+
+-   Update x-axis scale such that the years displayed go from 2000 to 2024 in increments of 4 years.
+
+```{r}
+#| label: x-axis
+ggplot(
+  population_longer |>
+    filter(country_name %in% c("China", "India", "United States")) |>
+    mutate(Population = Population /1000000),
+  aes(x = year, y = Population, color = country_name, shape=country_name)) +
+  geom_point() + 
+  geom_line() +
+  scale_x_continuous(breaks = seq(2000,2024,4)) + 
+  labs(y = "Population (in millions)",
+       color="Country", shape="Country")
+```
+
+-   Update the y-axis so it's scaled to millions and uses the same breaks as the goal plot.
+
+```{r}
+#| label: y-axis
+ggplot(
+  population_longer |>
+    filter(country_name %in% c("China", "India", "United States")) |>
+    mutate(Population = Population /1000000),
+  aes(x = year, y = Population, color = country_name, shape=country_name)) +
+  geom_point() + 
+  geom_line() +
+  scale_x_continuous(limits = c(2000,2024), breaks = seq(2000,2024,4)) + 
+  scale_y_continuous(breaks = seq(0,1500,250),
+                     labels=label_number(scale = 1, suffix=" mil")) + 
+  labs(y = "Population (in millions)",
+       color="Country", shape="Country")
+```
+
+-   Update colors for each country using the following level / color assignments.
+    -   "United States" = "#0A3161"
+    -   "India" = "#FF671F"
+    -   "China" = "#EE1C25"
+
+```{r}
+#| label: colors
+ggplot(
+  population_longer |>
+    filter(country_name %in% c("China", "India", "United States")) |>
+    mutate(Population = Population /1000000),
+  aes(x = year, y = Population, color = country_name, shape=country_name)) +
+  geom_point() + 
+  geom_line() +
+  scale_x_continuous(limits = c(2000,2024), breaks = seq(2000,2024,4)) + 
+  scale_y_continuous(breaks = seq(0,1500,250),
+                     labels=label_number(scale = 1, suffix=" mil")) + 
+  scale_color_manual(
+    values = c("United States" = "#0A3161",
+               "India" = "#FF671F",
+               "China" = "#EE1C25")
+  ) + 
+  theme_minimal() +
+  labs(x="Year",
+       y = "Population (in millions)",
+       title="Country populations over years",
+       subtitle = "2000 to 2023",
+       caption = "Data source: World Bank",
+      color="Country", shape="Country")
+```
+
+-   Update the plot labels (`title`, `subtitle`, `x`, `y`, and `caption`) and use `theme_minimal()`.
+
+```{r}
+#| label: labels-theme
+# add code here
+```
+
+-   Finally, move the legend to the top of the plot and remove its label.
+
+```{r}
+#| label: country-populations-years
+ggplot(
+  population_longer |>
+    filter(country_name %in% c("China", "India", "United States")) |>
+    mutate(Population = Population /1000000),
+  aes(x = year, y = Population, color = country_name, shape=country_name)) +
+  geom_point() + 
+  geom_line() +
+  scale_x_continuous(limits = c(2000,2024), breaks = seq(2000,2024,4)) + 
+  scale_y_continuous(breaks = seq(0,1500,250),
+                     labels=label_number(scale = 1, suffix=" mil")) + 
+  scale_color_manual(
+    values = c("United States" = "#0A3161",
+               "India" = "#FF671F",
+               "China" = "#EE1C25")
+  ) + 
+  theme_minimal() +
+  labs(x="Year",
+       y = "Population (in millions)",
+       title="Country populations over years",
+       subtitle = "2000 to 2023",
+       caption = "Data source: World Bank",
+      color=NULL, shape=NULL) + 
+  theme(legend.position = "top")
+```
