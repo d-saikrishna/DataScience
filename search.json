@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Stats and DS Blogs",
+    "section": "",
+    "text": "Introduction\nProbability\n\nLucky Number 7",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "Statistics/Lucky_number_7.html",
+    "href": "Statistics/Lucky_number_7.html",
+    "title": "Lucky Number 7",
+    "section": "",
+    "text": "Many people across centuries and cultures believed 7 to be a lucky number. There is also a movie made on this theme. There are many theories explaining why 7 became so popular - from religious to mathematical. Every religion has something to do with 7. But even before these religions came into existence, there was a simple game called dice, which I will conjecture as an explanation to why 7 came to be considered as lucky. Here, is a statistical theory.\nThe symmetrical dice that we play with today has its origins 3000 years ago in the Indus Valley Civilisation.\n\n\n\nMaybe for thrill, people often played with two dice. Even Shakuni in Mahabharata.\n\n\n\nThere are all the 36 possible combinations we can see when we throw two dice:\n\n# All possible outcomes of two dice\noutcomes = [(i, j) for i in range(1, 7) for j in range(1, 7)]\noutcomes\n\n[(1, 1),\n (1, 2),\n (1, 3),\n (1, 4),\n (1, 5),\n (1, 6),\n (2, 1),\n (2, 2),\n (2, 3),\n (2, 4),\n (2, 5),\n (2, 6),\n (3, 1),\n (3, 2),\n (3, 3),\n (3, 4),\n (3, 5),\n (3, 6),\n (4, 1),\n (4, 2),\n (4, 3),\n (4, 4),\n (4, 5),\n (4, 6),\n (5, 1),\n (5, 2),\n (5, 3),\n (5, 4),\n (5, 5),\n (5, 6),\n (6, 1),\n (6, 2),\n (6, 3),\n (6, 4),\n (6, 5),\n (6, 6)]\n\n\nSum of two dice thus becomes an important variable for all the players and gamblers. That sum will determine how far your pawns move in Ludo. In statistical lingo, it is the Random Variable (X) and it can take values between 2 (1+1) to 12 (6+6)\n\n# Compute sums\nsums = [i + j for i, j in outcomes]\nsums\n\n[2,\n 3,\n 4,\n 5,\n 6,\n 7,\n 3,\n 4,\n 5,\n 6,\n 7,\n 8,\n 4,\n 5,\n 6,\n 7,\n 8,\n 9,\n 5,\n 6,\n 7,\n 8,\n 9,\n 10,\n 6,\n 7,\n 8,\n 9,\n 10,\n 11,\n 7,\n 8,\n 9,\n 10,\n 11,\n 12]\n\n\nClearly, a few sums are more frequently obtained than others. 2 is obtained only when both dice show 1 and it can happen only once. But 4 can be obtained with 2+2 and also 1+3 and 3+1. We can count them and also calculate the probability of obtaining a particular sum.\n\nfrom collections import Counter\n\n# Count frequencies\ncounts = Counter(sums)\ncounts\n\nCounter({7: 6, 6: 5, 8: 5, 5: 4, 9: 4, 4: 3, 10: 3, 3: 2, 11: 2, 2: 1, 12: 1})\n\n\n\n\nShow hidden code that calculates the PMF\n# Total outcomes\ntotal = len(outcomes)\n\n# Probability distribution function\npmf = {k: v / total for k, v in sorted(counts.items())}\n\n# Print result\nfor k, v in pmf.items():\n    print(f\"P(X = {k}) = {v:.3f}\")\n\n\nP(X = 2) = 0.028\nP(X = 3) = 0.056\nP(X = 4) = 0.083\nP(X = 5) = 0.111\nP(X = 6) = 0.139\nP(X = 7) = 0.167\nP(X = 8) = 0.139\nP(X = 9) = 0.111\nP(X = 10) = 0.083\nP(X = 11) = 0.056\nP(X = 12) = 0.028\n\n\n\n\nShow hidden code that plots the PMF\nimport matplotlib.pyplot as plt\nx = list(pmf.keys())\ny = list(pmf.values())\n\n# Plot\nplt.figure()\nplt.bar(x, y)\n\nplt.xlabel(\"Sum of Two Dice\")\nplt.ylabel(\"Probability\")\nplt.title(\"PMF of Sum of Two Dice\")\nplt.xticks(x)\n\nplt.show()\n\n\n\n\n\n\n\n\n\nTo see sum 7 thus has the most probability. 6 of the 36 possibilities help in getting that sum: 1+6, 6+1, 2+5, 5+2, 3+4, 4+3. The players and gamblers who believed in 7 more would have obviously won more, on an average. And my conjecture is that this allowed 7 to remain popular as a lucky number.",
+    "crumbs": [
+      "Probability",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Lucky Number 7</span>"
+    ]
+  }
+]
