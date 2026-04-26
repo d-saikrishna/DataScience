@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lucky Number 7 – Stats and DS Stories</title>
+<title>When to give up? – Stats and DS Stories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Statistics/When_to_give_up.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../Statistics/Lucky_number_7.html" rel="prev">
 <link href="../images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -111,6 +110,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -285,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html">Probability</a></li><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html"><span class="chapter-title">Lucky Number 7</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html">Probability</a></li><li class="breadcrumb-item"><a href="../Statistics/When_to_give_up.html"><span class="chapter-title">When to give up?</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -349,12 +377,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Statistics/Lucky_number_7.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Lucky Number 7</span></a>
+  <a href="../Statistics/Lucky_number_7.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lucky Number 7</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Statistics/When_to_give_up.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">When to give up?</span></a>
+  <a href="../Statistics/When_to_give_up.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">When to give up?</span></a>
   </div>
 </li>
       </ul>
@@ -371,9 +399,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html">Probability</a></li><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html"><span class="chapter-title">Lucky Number 7</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Statistics/Lucky_number_7.html">Probability</a></li><li class="breadcrumb-item"><a href="../Statistics/When_to_give_up.html"><span class="chapter-title">When to give up?</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Lucky Number 7</span></h1>
+<h1 class="title"><span class="chapter-title">When to give up?</span></h1>
 </div>
 
 
@@ -390,168 +418,127 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Many people across centuries and cultures believed 7 to be a lucky number. There is also a <a href="https://www.imdb.com/title/tt0425210/">movie</a> made on this theme. There are many theories explaining why 7 became so popular - from religious to mathematical. Every religion has something to do with 7. But even before these religions came into existence, there was a simple game called dice, which I will conjecture as an explanation to why 7 came to be considered as lucky. Here, is a statistical theory.</p>
-The symmetrical dice that we play with today has its origins 3000 years ago in the <a href="https://www.harappa.com/slide/indus-dice">Indus Valley Civilisation</a>.
-<div style="text-align: center">
-<img src="https://www.harappa.com/sites/default/files/slides/IMG_9380%20copy.jpg" style="width: 100%; max-width: 500px;">
+<p>The advice about giving up is mixed and confusing. One school of thinkers, <a href="https://www.youtube.com/watch?v=h6Ol3eprKiw">singers</a> and hustlers advice us to ‘Never Give Up’. And then there is this TEDx video about <a href="https://www.youtube.com/watch?v=edEgxD_rX3c">Art of Quitting</a> I really like. Statistics has some advice as well. Let’s see if it can give us some clarity.</p>
+<p>We’ll take our dice again. We know that each number has an equal probability of <code>1/6</code>. We will consider getting a <code>6</code> as a success. The question is when do we give up trying to get a 6? Or, put differently, how many throws will it take to get the first 6? First success!</p>
+<ol type="1">
+<li>The probability of getting the first 6 in first throw is <span class="math inline">\(P(X=1) = 1/6\)</span>.</li>
+<li>The probability of getting the first 6 in second throw is <span class="math inline">\(P(X=2) = 5/6 * 1/6\)</span> (Not getting a 6 in first throw AND getting a 6 on second throw)</li>
+<li>Thus the probability of getting the first 6 in nth throw is: <span class="math inline">\(P(X=n) = (5/6)^{n-1} * 1/6\)</span> … a geometric progession.</li>
+</ol>
+<p>We can plot these probabilities as follows. Lets assume that we threw the dice 30 times.</p>
+<div id="a3dc9b1d-c652-4295-9da1-4b153716e17f" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>  <span class="co"># probability of success</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pmf <span class="op">=</span> {}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">31</span>):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    pmf[i] <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> p)<span class="op">**</span>(i <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-Maybe for thrill, people often played with two dice. Even Shakuni in Mahabharata.
-<div style="text-align: center">
-<img src="https://www.amarchitrakatha.com/wp-content/uploads/2020/09/ShakhuniDice_865x500.jpg" style="width: 100%; max-width: 500px;">
-</div>
-<p>Here are the 36 possible combinations we can see when we throw two dice:</p>
-<div id="e43ea6a7-ddc4-422f-9f19-29bb35054852" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># All possible outcomes of two dice</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>outcomes <span class="op">=</span> [(i, j) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">7</span>)]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>outcomes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>[(1, 1),
- (1, 2),
- (1, 3),
- (1, 4),
- (1, 5),
- (1, 6),
- (2, 1),
- (2, 2),
- (2, 3),
- (2, 4),
- (2, 5),
- (2, 6),
- (3, 1),
- (3, 2),
- (3, 3),
- (3, 4),
- (3, 5),
- (3, 6),
- (4, 1),
- (4, 2),
- (4, 3),
- (4, 4),
- (4, 5),
- (4, 6),
- (5, 1),
- (5, 2),
- (5, 3),
- (5, 4),
- (5, 5),
- (5, 6),
- (6, 1),
- (6, 2),
- (6, 3),
- (6, 4),
- (6, 5),
- (6, 6)]</code></pre>
-</div>
-</div>
-<p><code>Sum of two dice</code> thus becomes an important variable for all the players and gamblers. That sum will determine how far your pawns move in Ludo. In statistical lingo, it is the Random Variable (X) and it can take values between 2 (1+1) to 12 (6+6)</p>
-<div id="6c1e5a47-0685-4efc-9e3c-f97be8a31984" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sums</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sums <span class="op">=</span> [i <span class="op">+</span> j <span class="cf">for</span> i, j <span class="kw">in</span> outcomes]</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sums</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>[2,
- 3,
- 4,
- 5,
- 6,
- 7,
- 3,
- 4,
- 5,
- 6,
- 7,
- 8,
- 4,
- 5,
- 6,
- 7,
- 8,
- 9,
- 5,
- 6,
- 7,
- 8,
- 9,
- 10,
- 6,
- 7,
- 8,
- 9,
- 10,
- 11,
- 7,
- 8,
- 9,
- 10,
- 11,
- 12]</code></pre>
-</div>
-</div>
-<p>Clearly, a few <code>sums</code> are more frequently obtained than others. <code>2</code> is obtained only when both dice show <code>1</code> and it can happen only once. But <code>4</code> can be obtained with <code>2+2</code> and also <code>1+3</code> and <code>3+1</code>. We can count them and also calculate the probability of obtaining a particular sum.</p>
-<div id="5641922a-8905-432a-8330-f7ac26559232" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Count frequencies</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> Counter(sums)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>counts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>Counter({7: 6, 6: 5, 8: 5, 5: 4, 9: 4, 4: 3, 10: 3, 3: 2, 11: 2, 2: 1, 12: 1})</code></pre>
-</div>
-</div>
-<div id="6b340f66-d523-47b8-b116-78bbed93dcd9" class="cell" data-execution_count="6">
-<details class="code-fold">
-<summary>Show hidden code that calculates the PMF</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total outcomes</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">len</span>(outcomes)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability distribution function</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pmf <span class="op">=</span> {k: v <span class="op">/</span> total <span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">sorted</span>(counts.items())}</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Print result</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> pmf.items():</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"P(X = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>v<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>P(X = 2) = 0.028
-P(X = 3) = 0.056
-P(X = 4) = 0.083
-P(X = 5) = 0.111
-P(X = 6) = 0.139
-P(X = 7) = 0.167
-P(X = 8) = 0.139
-P(X = 9) = 0.111
-P(X = 10) = 0.083
-P(X = 11) = 0.056
-P(X = 12) = 0.028</code></pre>
-</div>
-</div>
-<div id="95ff5e4d-94d5-46fd-8cee-158b3af0ce68" class="cell" data-execution_count="9">
+<div id="4a90fbc7-e9ab-4e7e-988b-4a745fcd3139" class="cell" data-execution_count="43">
 <details class="code-fold">
 <summary>Show hidden code that plots the PMF</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(pmf.keys())</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">list</span>(pmf.values())</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.bar(x, y)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Sum of Two Dice"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Probability"</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PMF of Sum of Two Dice"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(x)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(pmf.keys())</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">list</span>(pmf.values())</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.bar(x, y)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Throw"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Probability of first 6 occuring"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PMF of Throw on which first 6 occurs"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(x)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Lucky_number_7_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="When_to_give_up_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>To see sum <code>7</code> thus has the most probability. 6 of the 36 possibilities help in getting that sum: <code>1+6</code>, <code>6+1</code>, <code>2+5</code>, <code>5+2</code>, <code>3+4</code>, <code>4+3</code>. The players and gamblers who believed in 7 more would have obviously won more, on an average. And my conjecture is that this allowed 7 to remain popular as a lucky number.</p>
+<p>Ever heard about beginners luck? This chart shows you that. We actually have more chance of getting a 6, a success, on our first attempt.</p>
+<p>Anyways, we were interested in a different question of: <code>How many throws will it take to get the first 6?</code></p>
+<ol type="1">
+<li>The probability of getting a six in one throw: <span class="math inline">\(P(X=1)\)</span></li>
+<li>The probability of getting a six in two throws <span class="math inline">\(P(X&lt;=2) = P(X=1) + P(X=2)\)</span></li>
+<li>The probability of getting a six in n throws <span class="math inline">\(P(X&lt;=n) = P(X=1) + P(X=2) ..... + P(X=n)\)</span></li>
+</ol>
+<p>We are calculating the cumulative probabilities. CDF.</p>
+<div id="8181ef15-d202-4884-9073-0b442ff51dd1" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cumulative_probabilities <span class="op">=</span> np.cumsum(np.array(<span class="bu">list</span>(pmf.values())))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>cdf <span class="op">=</span> {}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">31</span>):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    cdf[i] <span class="op">=</span> cumulative_probabilities[i<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f61b57c7-bc8e-4fa9-a3c0-9e7d332a6561" class="cell" data-execution_count="52">
+<details class="code-fold">
+<summary>Show hidden code that plots the CDF</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(cdf.keys())</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">list</span>(cdf.values())</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.step(x, y, where<span class="op">=</span><span class="st">'post'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Throw"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cumulative Probability"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"CDF of throws required to get the first 6"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(x)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="When_to_give_up_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are some philosophical lessons here.</p>
+<ol type="1">
+<li>The probability of getting your first success increases with every try. Yes, you had the most chance on your first try. But that doesn’t mean you give up after the first try. It adds up. Go listen to that <a href="https://www.youtube.com/watch?v=h6Ol3eprKiw">Never Give up Song</a></li>
+<li>You can never be sure of 100% success. The Cumulative probability goes near 1, but reaches 1 only when n-&gt; infinite. After throwing the dice for 30 times, there is 99.6% chance that you saw your first 6 in those 30 throws. Not 100%.</li>
+</ol>
+<div id="e6f9f297-5d06-4ca9-9068-1735ef5e1232" class="cell" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">30</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>np.float64(0.9957872797669126)</code></pre>
+</div>
+</div>
+<p>If we cannot give you 100% chance of getting a 6 on dice, you can forget about other life endeavours. We cannot take action in life asking 100% assurance. Neither from your doctor or lover. A better metric to ask for is <code>expected value</code> or <code>mean</code>.</p>
+<div id="5c36dae3-45bf-47e8-9eb3-5e6a0ae10d62" class="cell" data-execution_count="50">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#expected value or mean</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>expected_value <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k,v) <span class="kw">in</span> pmf.items():</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    expected_value <span class="op">=</span> expected_value <span class="op">+</span> k<span class="op">*</span>v</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>expected_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<pre><code>5.848342071608855</code></pre>
+</div>
+</div>
+<p>I would interpret it that one should atleast try 6 throws before giving up on getting a 6. From CDF, we can see that there is about 66% chance to get the first 6 in 6 throws.</p>
+<div id="40f7356a-5838-4e91-84c0-beecc6ae63fa" class="cell" data-execution_count="55">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">6</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+<pre><code>np.float64(0.6651020233196159)</code></pre>
+</div>
+</div>
+<p>Or, a more conservative metric in this context is <code>median</code>. The cumulative probability of getting first 6 in 4 throws is about 52%. So, to have atleast 50% chance of success, one must throw dice 4 times at the least.</p>
+<div id="228282c8-ef20-40cc-a563-88382eb4cd8a" class="cell" data-execution_count="53">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<pre><code>np.float64(0.5177469135802469)</code></pre>
+</div>
+</div>
+<p>The <a href="https://www.youtube.com/watch?v=edEgxD_rX3c">Art of Quitting</a> begins after these 4 or 6 attempts. But since many of us start thinking about giving up after the first attempt only, <a href="https://www.youtube.com/watch?v=h6Ol3eprKiw">Never Give up</a> advice holds for most of us.</p>
 
 
 
@@ -971,14 +958,11 @@ P(X = 12) = 0.028</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      <a href="../Statistics/Lucky_number_7.html" class="pagination-link" aria-label="Lucky Number 7">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Lucky Number 7</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Statistics/When_to_give_up.html" class="pagination-link" aria-label="When to give up?">
-        <span class="nav-page-text"><span class="chapter-title">When to give up?</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
