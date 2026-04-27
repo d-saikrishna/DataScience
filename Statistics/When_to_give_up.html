@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>When to give up? – Stats and DS Stories</title>
+<title>When to give up? – Stats Stories</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../Statistics/How_accurate_were_WW2_bombers.html" rel="next">
 <link href="../Statistics/Lucky_number_7.html" rel="prev">
 <link href="../images/vectorstock_43755881.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
@@ -328,10 +329,10 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Stats and DS Stories</a> 
+      <a href="../">Stats Stories</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/d-saikrishna/DataScience" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="../Stats-and-DS-Stories.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="../Stats-Stories.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -385,6 +386,11 @@ window.Quarto = {
   <a href="../Statistics/When_to_give_up.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">When to give up?</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Statistics/How_accurate_were_WW2_bombers.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">How accurate were the bombers during World War 2?</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -426,30 +432,35 @@ window.Quarto = {
 <li>Thus the probability of getting the first 6 in nth throw is: <span class="math inline">\(P(X=n) = (5/6)^{n-1} * 1/6\)</span> … a geometric progession.</li>
 </ol>
 <p>We can plot these probabilities as follows. Lets assume that we threw the dice 30 times.</p>
-<div id="a3dc9b1d-c652-4295-9da1-4b153716e17f" class="cell" data-execution_count="8">
+<div id="a3dc9b1d-c652-4295-9da1-4b153716e17f" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">6</span>  <span class="co"># probability of success</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pmf <span class="op">=</span> {}</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">31</span>):</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    pmf[i] <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> p)<span class="op">**</span>(i <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="4a90fbc7-e9ab-4e7e-988b-4a745fcd3139" class="cell" data-execution_count="43">
+<div id="4a90fbc7-e9ab-4e7e-988b-4a745fcd3139" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show hidden code that plots the PMF</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(pmf.keys())</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">list</span>(pmf.values())</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Silence matplotlib font logs</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>logging.getLogger(<span class="st">'matplotlib.font_manager'</span>).setLevel(logging.ERROR)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.bar(x, y)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Throw"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Probability of first 6 occuring"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PMF of Throw on which first 6 occurs"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(x)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.xkcd()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">list</span>(pmf.keys())</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">list</span>(pmf.values())</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">7</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.bar(x, y)</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Throw"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Probability of first 6 occuring"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"PMF of Throw on which first 6 occurs"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>plt.xticks(x)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -467,7 +478,8 @@ window.Quarto = {
 <li>The probability of getting a six in n throws <span class="math inline">\(P(X&lt;=n) = P(X=1) + P(X=2) ..... + P(X=n)\)</span></li>
 </ol>
 <p>We are calculating the cumulative probabilities. CDF.</p>
-<div id="8181ef15-d202-4884-9073-0b442ff51dd1" class="cell" data-execution_count="37">
+<p>It is also mathematically equivalent to <code>Probability of getting atleast one 6 in n throws</code></p>
+<div id="8181ef15-d202-4884-9073-0b442ff51dd1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cumulative_probabilities <span class="op">=</span> np.cumsum(np.array(<span class="bu">list</span>(pmf.values())))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -475,7 +487,7 @@ window.Quarto = {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">31</span>):</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    cdf[i] <span class="op">=</span> cumulative_probabilities[i<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f61b57c7-bc8e-4fa9-a3c0-9e7d332a6561" class="cell" data-execution_count="52">
+<div id="f61b57c7-bc8e-4fa9-a3c0-9e7d332a6561" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show hidden code that plots the CDF</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -506,39 +518,40 @@ window.Quarto = {
 <li>The probability of getting your first success increases with every try. Yes, you had the most chance on your first try. But that doesn’t mean you give up after the first try. It adds up. Go listen to that <a href="https://www.youtube.com/watch?v=h6Ol3eprKiw">Never Give up Song</a></li>
 <li>You can never be sure of 100% success. The Cumulative probability goes near 1, but reaches 1 only when n-&gt; infinite. After throwing the dice for 30 times, there is 99.6% chance that you saw your first 6 in those 30 throws. Not 100%.</li>
 </ol>
-<div id="e6f9f297-5d06-4ca9-9068-1735ef5e1232" class="cell" data-execution_count="44">
+<div id="e6f9f297-5d06-4ca9-9068-1735ef5e1232" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">30</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>np.float64(0.9957872797669126)</code></pre>
 </div>
 </div>
 <p>If we cannot give you 100% chance of getting a 6 on dice, you can forget about other life endeavours. We cannot take action in life asking 100% assurance. Neither from your doctor or lover. A better metric to ask for is <code>expected value</code> or <code>mean</code>.</p>
-<div id="5c36dae3-45bf-47e8-9eb3-5e6a0ae10d62" class="cell" data-execution_count="50">
+<div id="5c36dae3-45bf-47e8-9eb3-5e6a0ae10d62" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#expected value or mean</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>expected_value <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k,v) <span class="kw">in</span> pmf.items():</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    expected_value <span class="op">=</span> expected_value <span class="op">+</span> k<span class="op">*</span>v</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>expected_value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>5.848342071608855</code></pre>
 </div>
 </div>
 <p>I would interpret it that one should atleast try 6 throws before giving up on getting a 6. From CDF, we can see that there is about 66% chance to get the first 6 in 6 throws.</p>
-<div id="40f7356a-5838-4e91-84c0-beecc6ae63fa" class="cell" data-execution_count="55">
+<div id="40f7356a-5838-4e91-84c0-beecc6ae63fa" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">6</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="55">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>np.float64(0.6651020233196159)</code></pre>
 </div>
 </div>
 <p>Or, a more conservative metric in this context is <code>median</code>. The cumulative probability of getting first 6 in 4 throws is about 52%. So, to have atleast 50% chance of success, one must throw dice 4 times at the least.</p>
-<div id="228282c8-ef20-40cc-a563-88382eb4cd8a" class="cell" data-execution_count="53">
+<div id="228282c8-ef20-40cc-a563-88382eb4cd8a" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cdf[<span class="dv">4</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="53">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>np.float64(0.5177469135802469)</code></pre>
 </div>
 </div>
 <p>The <a href="https://www.youtube.com/watch?v=edEgxD_rX3c">Art of Quitting</a> begins after these 4 or 6 attempts. But since many of us start thinking about giving up after the first attempt only, <a href="https://www.youtube.com/watch?v=h6Ol3eprKiw">Never Give up</a> advice holds for most of us.</p>
+<p>There is a short-cut to estimating the mean number of attempts. If the probability of success is <code>p</code>, and we are giving <code>n</code> attempts, then the expected value (mean) is <code>np</code> (Binomial distribution). By equating this expected value to 1, i.e., expecting one success, we get <span class="math inline">\(n=1/p\)</span>. You should give atleast <code>1/p</code> number of attempts. In the above example, probability of getting a 6 is <code>1/6</code>. So, we should atleast throw dice 6 times before giving up.</p>
 
 
 
@@ -963,6 +976,9 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../Statistics/How_accurate_were_WW2_bombers.html" class="pagination-link" aria-label="How accurate were the bombers during World War 2?">
+        <span class="nav-page-text"><span class="chapter-title">How accurate were the bombers during World War 2?</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
